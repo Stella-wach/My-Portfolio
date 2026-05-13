@@ -27,7 +27,7 @@ export const projects = [
     technologies: 'React.js, Vite, React Router, Recharts, Axios, Express, Node.js, MongoDB, Mongoose, JWT, bcryptjs',
     location: 'Nairobi, Kenya',
     githubUrl: 'https://github.com/Stella-wach/FUTURE_FS_02.git',
-    liveUrl: 'https://future-fs-02-sable-nu.vercel.app/login',
+    liveUrl: 'https://future-fs-02-sable-nu.vercel.app/',
     linkedinUrl: 'https://www.linkedin.com/posts/stella-wachira-1517913a4_webdevelopment-reactjs-nodejs-ugcPost-7443349848852176896-k-yj?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGMSNI0Bh9MDrbRjMRDYWTVpSMyQJFROow0',
     images: [
       { id: '2-1', src: 'https://images.unsplash.com/photo-1771922748624-b205cf5d002d?q=80&w=1120&auto=format&fit=crop', alt: 'Mini crm', aspectRatio: 'landscape' },
