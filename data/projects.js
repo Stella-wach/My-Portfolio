@@ -101,6 +101,25 @@ export const projects = [
       { id: '6-1', src: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1080&q=80', alt: 'Hotel booking interface', aspectRatio: 'landscape' },
     ]
   },
+  {
+    id: '7',
+title: 'AgriCast - Smart Farming Weather Assistant',
+category: 'frontend',
+year: '2026',
+slug: 'agricast-weather-assistant',
+coverImage: 'https://images.unsplash.com/photo-1704646355754-ee810fa808f5?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+description: 'A smart farming weather assistant built for smallholder farmers in Kenya and East Africa. Translates raw weather data into actionable planting decisions telling farmers whether to plant today, wait two days, or avoid planting entirely, based on crop-specific thresholds. Features a 7-day forecast, planting calendar, maintenance guides for 8 crops, bilingual English and Swahili support, and a dark mode interface with animated UI.',
+technologies: 'React, TypeScript, Vite, Tailwind CSS v4, Framer Motion, WeatherAI API, Open-Meteo',
+location: 'Nairobi, Kenya',
+githubUrl: 'https://github.com/Stella-wach/AgriCast-WeatherAI.git',
+liveUrl: 'https://agri-cast-weather-ai.vercel.app/',
+linkedinUrl: '',
+images: [
+  { id: '7-1', src: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1080&q=80', alt: 'AgriCast farming dashboard', aspectRatio: 'landscape' },
+  { id: '7-2', src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1080&q=80', alt: 'Wheat field forecast', aspectRatio: 'landscape' },
+  { id: '7-3', src: 'https://images.unsplash.com/photo-1601593346740-925612772716?auto=format&fit=crop&w=1080&q=80', alt: 'Maize crop planting guide', aspectRatio: 'landscape' },
+]
+  },
 ];
 
 export const getProjectBySlug = (slug) => projects.find(p => p.slug === slug);
