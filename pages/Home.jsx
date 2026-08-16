@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Eye, Download, Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Eye, Download, Github, Linkedin, Twitter, Mail, Laptop } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { photographerInfo } from '@/data/photographer.js';
 import { SEOHead } from '@/components/seo/SEOHead.jsx';
@@ -80,6 +80,10 @@ export default function Home() {
                   <motion.div animate={{ y: [-5, 5, -5] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                     className="absolute -top-2 -right-2 w-12 h-12 rounded-full bg-amber-400 flex items-center justify-center text-black font-bold text-sm">
                     {'</>'}
+                  </motion.div>
+                  <motion.div animate={{ y: [5, -5, 5] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute -bottom-2 -left-2 w-12 h-12 rounded-full bg-blue-950 flex items-center justify-center">
+                    <Laptop className="size-5 text-amber-400" />
                   </motion.div>
                 </div>
               </motion.div>

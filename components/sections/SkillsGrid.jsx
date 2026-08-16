@@ -1,26 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { skills } from '@/data/skills.js';
 
-const skills = [
-  { name: 'HTML5',         icon: '🌐' },
-  { name: 'Tailwind CSS',  icon: '🎨' },
-  { name: 'TypeScript',    icon: '🔷' },
-  { name: 'JavaScript',    icon: '⚡' },
-  { name: 'React',         icon: '⚛️' },
-  { name: 'Vue.js',        icon: '💚' },
-  { name: 'Node.js',       icon: '🟢' },
-  { name: 'Express.js',    icon: '🚀' },
-  { name: 'Laravel',       icon: '🔴' },
-  { name: 'PHP',           icon: '🐘' },
-  { name: 'MongoDB',       icon: '🍃' },
-  { name: 'MySQL',         icon: '🗄️' },
-  { name: 'Firebase',      icon: '🔥' },
-  { name: 'Flutter',       icon: '📱' },
-  { name: 'Git',           icon: '🔀' },
-  { name: 'GitHub',        icon: '🐙' },
-  { name: 'Postman',       icon: '📮' },
-  { name: 'Framer Motion', icon: '✨' },
-];
 
 export function SkillsGrid() {
   const ref = useRef(null);

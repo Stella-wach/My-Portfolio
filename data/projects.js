@@ -51,23 +51,6 @@ export const projects = [
     ]
   },
   {
-    id: '4',
-    title: 'Infnova Academy',
-    category: 'frontend',
-    year: '2026',
-    slug: 'Infnova-Academy',
-    coverImage: 'https://images.unsplash.com/photo-1687603917313-ccae1a289a9d?q=80&w=870&auto=format&fit=crop',
-    description: 'Built a modern academy platform using React, Vite, React Router, and Tailwind CSS. Focused on creating a fast, responsive, and smooth learning experience with clean UI and easy navigation.',
-    technologies: 'React, Tailwind CSS, Vite, React Router',
-    location: 'Nairobi, Kenya',
-    githubUrl: 'https://github.com/Stella-wach/Infnova-Academy.git',
-    liveUrl: 'https://infnova-academy-ten.vercel.app/',
-    linkedinUrl: '',
-    images: [
-      { id: '4-1', src: 'https://images.unsplash.com/photo-1687603917313-ccae1a289a9d?q=80&w=870&auto=format&fit=crop', alt: 'Infnova Academy', aspectRatio: 'landscape' },
-    ]
-  },
-  {
     id: '5',
     title: 'Quiet-Cafe WordPress Theme',
     category: 'fullstack',
@@ -78,7 +61,7 @@ export const projects = [
     technologies: 'PHP, WordPress Theme API, HTML5 & CSS3, JavaScript, WordPress Block Editor (Gutenberg)',
     location: 'Nairobi, Kenya',
     githubUrl: 'https://github.com/Stella-wach/FUTURE_FS_03.git',
-    liveUrl: '',
+    liveUrl: 'https://quietcafe.fwh.is',
     linkedinUrl: 'https://www.linkedin.com/posts/stella-wachira-1517913a4_futureinterns-task3-wordpress-ugcPost-7443350565327339520-kbaa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGMSNI0Bh9MDrbRjMRDYWTVpSMyQJFROow0',
     images: [
       { id: '5-1', src: 'https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=870&auto=format&fit=crop', alt: 'WordPress theme', aspectRatio: 'landscape' },
@@ -100,25 +83,6 @@ export const projects = [
     images: [
       { id: '6-1', src: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1080&q=80', alt: 'Hotel booking interface', aspectRatio: 'landscape' },
     ]
-  },
-  {
-    id: '7',
-title: 'AgriCast - Smart Farming Weather Assistant',
-category: 'frontend',
-year: '2026',
-slug: 'agricast-weather-assistant',
-coverImage: 'https://images.unsplash.com/photo-1704646355754-ee810fa808f5?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-description: 'A smart farming weather assistant built for smallholder farmers in Kenya and East Africa. Translates raw weather data into actionable planting decisions telling farmers whether to plant today, wait two days, or avoid planting entirely, based on crop-specific thresholds. Features a 7-day forecast, planting calendar, maintenance guides for 8 crops, bilingual English and Swahili support, and a dark mode interface with animated UI.',
-technologies: 'React, TypeScript, Vite, Tailwind CSS v4, Framer Motion, WeatherAI API, Open-Meteo',
-location: 'Nairobi, Kenya',
-githubUrl: 'https://github.com/Stella-wach/AgriCast-WeatherAI.git',
-liveUrl: 'https://agri-cast-weather-ai.vercel.app/',
-linkedinUrl: '',
-images: [
-  { id: '7-1', src: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1080&q=80', alt: 'AgriCast farming dashboard', aspectRatio: 'landscape' },
-  { id: '7-2', src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1080&q=80', alt: 'Wheat field forecast', aspectRatio: 'landscape' },
-  { id: '7-3', src: 'https://images.unsplash.com/photo-1601593346740-925612772716?auto=format&fit=crop&w=1080&q=80', alt: 'Maize crop planting guide', aspectRatio: 'landscape' },
-]
   },
 ];
 

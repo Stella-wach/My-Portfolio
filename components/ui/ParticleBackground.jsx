@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { skills } from '@/data/skills.js';
 
 export function ParticleBackground() {
   const canvasRef = useRef(null);
@@ -10,34 +11,59 @@ export function ParticleBackground() {
     if (!ctx) return;
 
     let animationId;
-    let particles = [];
+    let balls = [];
 
     const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
 
-    const createParticles = () => {
-      const count = Math.floor((canvas.width * canvas.height) / 15000);
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 0.5, speedX: (Math.random() - 0.5) * 0.3,
-        speedY: (Math.random() - 0.5) * 0.3, opacity: Math.random() * 0.5 + 0.1,
+    const createBalls = () => {
+      // One floating bubble per skill, repeated as needed to fill larger
+      // screens without them feeling sparse.
+      const area = canvas.width * canvas.height;
+      const repeats = Math.max(1, Math.round(area / (900 * 900)));
+      const list = Array.from({ length: repeats }, () => skills).flat();
+
+      balls = list.map((skill) => ({
+        skill,
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 8 + 18, // 18-26px
+        speedX: (Math.random() - 0.5) * 0.25,
+        speedY: (Math.random() - 0.5) * 0.25,
+        opacity: Math.random() * 0.25 + 0.15,
       }));
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.x += p.speedX; p.y += p.speedY;
-        if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(187, 80%, 65%, ${p.opacity})`; ctx.fill();
+      balls.forEach((b) => {
+        b.x += b.speedX; b.y += b.speedY;
+        if (b.x < -30) b.x = canvas.width + 30;
+        if (b.x > canvas.width + 30) b.x = -30;
+        if (b.y < -30) b.y = canvas.height + 30;
+        if (b.y > canvas.height + 30) b.y = -30;
+
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(187, 80%, 65%, ${b.opacity})`;
+        ctx.fill();
+        ctx.strokeStyle = `hsla(187, 80%, 75%, ${b.opacity + 0.15})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.font = `${Math.round(b.radius)}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.globalAlpha = Math.min(1, b.opacity + 0.55);
+        ctx.fillText(b.skill.icon, b.x, b.y);
+        ctx.globalAlpha = 1;
       });
       animationId = requestAnimationFrame(animate);
     };
 
-    resize(); createParticles(); animate();
-    window.addEventListener('resize', () => { resize(); createParticles(); });
-    return () => { cancelAnimationFrame(animationId); window.removeEventListener('resize', resize); };
+    resize(); createBalls(); animate();
+    const onResize = () => { resize(); createBalls(); };
+    window.addEventListener('resize', onResize);
+    return () => { cancelAnimationFrame(animationId); window.removeEventListener('resize', onResize); };
   }, []);
 
   return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" aria-hidden="true" />;

@@ -6,15 +6,14 @@ import { useToast } from '@/hooks/use-toast';
 import emailjs from '@emailjs/browser';
 
 // ─── EmailJS config ───────────────────────────────────────────
-// 1. Sign up free at https://emailjs.com
-// 2. Create a Gmail service → copy Service ID
-// 3. Create an Email Template → copy Template ID
-//    Template variables: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
-// 4. Go to Account → API Keys → copy Public Key
-// Then replace the three values below:
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+// Set these in a .env file at the project root (not committed to git):
+//   VITE_EMAILJS_SERVICE_ID=...
+//   VITE_EMAILJS_TEMPLATE_ID=...
+//   VITE_EMAILJS_PUBLIC_KEY=...
+// and the same three in Vercel's Environment Variables for production.
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 // ─────────────────────────────────────────────────────────────
 
 const initialForm = { name: '', email: '', subject: '', message: '' };
@@ -59,6 +58,9 @@ export function ContactSection() {
 
     setSending(true);
     try {
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        throw new Error('EmailJS is not configured yet (missing VITE_EMAILJS_* env vars).');
+      }
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -75,6 +77,10 @@ export function ContactSection() {
       setFormData(initialForm);
       setErrors({});
       setTouched({});
+      toast({
+        title: 'Message sent successfully!',
+        description: "Thanks for reaching out — I'll get back to you soon.",
+      });
     } catch (err) {
       toast({
         title: 'Failed to send',
