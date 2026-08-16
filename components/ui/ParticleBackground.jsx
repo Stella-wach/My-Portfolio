@@ -16,20 +16,20 @@ export function ParticleBackground() {
     const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
 
     const createBalls = () => {
-      // One floating bubble per skill, repeated as needed to fill larger
-      // screens without them feeling sparse.
+      // Small, dense bubbles like the original dots - just with skill
+      // icons inside instead of being plain.
       const area = canvas.width * canvas.height;
-      const repeats = Math.max(1, Math.round(area / (900 * 900)));
-      const list = Array.from({ length: repeats }, () => skills).flat();
+      const targetCount = Math.floor(area / 20000);
+      const list = Array.from({ length: Math.ceil(targetCount / skills.length) }, () => skills).flat();
 
-      balls = list.map((skill) => ({
+      balls = list.slice(0, targetCount).map((skill) => ({
         skill,
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 8 + 18, // 18-26px
-        speedX: (Math.random() - 0.5) * 0.25,
-        speedY: (Math.random() - 0.5) * 0.25,
-        opacity: Math.random() * 0.25 + 0.15,
+        radius: Math.random() * 3 + 6, // 6-9px
+        speedX: (Math.random() - 0.5) * 0.3,
+        speedY: (Math.random() - 0.5) * 0.3,
+        opacity: Math.random() * 0.3 + 0.15,
       }));
     };
 
@@ -37,20 +37,17 @@ export function ParticleBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       balls.forEach((b) => {
         b.x += b.speedX; b.y += b.speedY;
-        if (b.x < -30) b.x = canvas.width + 30;
-        if (b.x > canvas.width + 30) b.x = -30;
-        if (b.y < -30) b.y = canvas.height + 30;
-        if (b.y > canvas.height + 30) b.y = -30;
+        if (b.x < -15) b.x = canvas.width + 15;
+        if (b.x > canvas.width + 15) b.x = -15;
+        if (b.y < -15) b.y = canvas.height + 15;
+        if (b.y > canvas.height + 15) b.y = -15;
 
         ctx.beginPath();
         ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(187, 80%, 65%, ${b.opacity})`;
         ctx.fill();
-        ctx.strokeStyle = `hsla(187, 80%, 75%, ${b.opacity + 0.15})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
 
-        ctx.font = `${Math.round(b.radius)}px sans-serif`;
+        ctx.font = `${Math.round(b.radius * 1.3)}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.globalAlpha = Math.min(1, b.opacity + 0.55);
