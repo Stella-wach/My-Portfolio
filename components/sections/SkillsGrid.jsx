@@ -1,7 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { skills } from '@/data/skills.js';
-
+import { skillCategories } from '@/data/skills.js';
 
 export function SkillsGrid() {
   const ref = useRef(null);
@@ -20,17 +19,30 @@ export function SkillsGrid() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
-          {skills.map((skill, index) => (
+        <div className="space-y-12">
+          {skillCategories.map((group, groupIndex) => (
             <motion.div
-              key={skill.name}
+              key={group.category}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="flex flex-col items-center gap-3 p-4 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors cursor-default">
-              <span className="text-2xl">{skill.icon}</span>
-              <span className="text-sm font-medium text-foreground text-center">{skill.name}</span>
+              transition={{ duration: 0.5, delay: groupIndex * 0.1 }}>
+              <h3 className="text-lg font-semibold text-muted-foreground mb-4 tracking-wide uppercase text-sm">
+                {group.category}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-5">
+                {group.skills.map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.4, delay: groupIndex * 0.1 + index * 0.04 }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="flex flex-col items-center gap-3 p-4 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors cursor-default">
+                    <span className="text-2xl">{skill.icon}</span>
+                    <span className="text-sm font-medium text-foreground text-center">{skill.name}</span>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
