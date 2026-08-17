@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useAnimationFrame } from 'framer-motion';
+import { useRef } from 'react';
 import { Eye, Download, Github, Linkedin, Twitter, Mail, Laptop } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { photographerInfo } from '@/data/photographer.js';
@@ -20,6 +21,51 @@ const fadeUp = {
 };
 
 export default function Home() {
+  const robotWrapRef = useRef(null);
+  const directionRef = useRef(1);
+  const rotate = useMotionValue(0);
+  const repelX = useMotionValue(0);
+  const repelY = useMotionValue(0);
+  const springX = useSpring(repelX, { stiffness: 120, damping: 14 });
+  const springY = useSpring(repelY, { stiffness: 120, damping: 14 });
+
+  // Continuous rotation driven manually (instead of a fixed 0->360
+  // keyframe) so reversing direction near the cursor is a smooth
+  // slow-down-and-reverse rather than a jump.
+  useAnimationFrame((_, delta) => {
+    rotate.set(rotate.get() + directionRef.current * (delta / 1000) * 18); // ~20s per revolution
+  });
+
+  const handleMouseMove = (e) => {
+    const el = robotWrapRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = cx - e.clientX;
+    const dy = cy - e.clientY;
+    const dist = Math.hypot(dx, dy);
+    const threshold = rect.width / 2 + 90;
+
+    if (dist < threshold) {
+      const norm = dist || 1;
+      const force = (1 - dist / threshold) * 26;
+      repelX.set((dx / norm) * force);
+      repelY.set((dy / norm) * force);
+      directionRef.current = -1; // spin the other way while someone's close
+    } else {
+      repelX.set(0);
+      repelY.set(0);
+      directionRef.current = 1;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    repelX.set(0);
+    repelY.set(0);
+    directionRef.current = 1;
+  };
+
   return (
     <>
       <SEOHead />
@@ -72,10 +118,15 @@ export default function Home() {
               <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="flex justify-center lg:justify-end">
-                <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] flex-shrink-0">
+                <motion.div
+                  ref={robotWrapRef}
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
+                  style={{ x: springX, y: springY }}
+                  className="relative w-72 h-72 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] flex-shrink-0">
                   <div className="absolute inset-0 rounded-full border-glow-cyan scale-110" />
                   <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/30">
-                    <motion.img src={robotGif} alt="3D Robot" className="w-full h-full object-contain" animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
+                    <motion.img src={robotGif} alt="3D Robot" className="w-full h-full object-contain" style={{ rotate }} />
                   </div>
                   <motion.div animate={{ y: [-5, 5, -5] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                     className="absolute -top-2 -right-2 w-12 h-12 rounded-full bg-amber-400 flex items-center justify-center text-black font-bold text-sm">
@@ -85,7 +136,7 @@ export default function Home() {
                     className="absolute -bottom-2 -left-2 w-12 h-12 rounded-full bg-blue-950 flex items-center justify-center">
                     <Laptop className="size-5 text-amber-400" />
                   </motion.div>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
           </div>
